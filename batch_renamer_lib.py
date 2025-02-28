@@ -1,3 +1,14 @@
+"""
+Filename: batch_renamer_lib.py
+Title: Batch File Renamer Library
+Author: Macy Chantharak
+Date Created: 2025-02-27
+Date Edited: 2025-02-28
+Description:
+    This library contains a class with functions for renaming or copying files.
+Python Version: 3.13
+"""
+
 import os
 import logging
 import shutil
@@ -54,9 +65,10 @@ class BatchRenamer:
         ###############################
         file_handler = logging.FileHandler(logfile)
         file_handler.setLevel(logging.INFO)
-        # formatting information we want (time, self.logger name, version, etc.)
-        formatter = logging.Formatter(f'%(asctime)s - %(name)s {version_number} - '
-                                    '%(levelname)s - %(message)s')
+        # formatting information we want (time, self.logger name, version, etc)
+        formatter = logging.Formatter(f'%(asctime)s - %(name)s '
+                                      f'{version_number} - '
+                                      f'%(levelname)s - %(message)s')
         # setting the log file format
         file_handler.setFormatter(formatter)
         # clean up old handlers
@@ -109,10 +121,9 @@ class BatchRenamer:
             if suffix != '':
                 name_only, ext = os.path.splitext(new_name)
                 new_name = name_only + suffix + ext
+            return new_name
         except TypeError:
             return
-        else:
-            return new_name
 
     def get_files_with_extension(self, folder_path, extension):
         """
@@ -137,8 +148,8 @@ class BatchRenamer:
     def rename_file(self, existing_name, new_name, copy=False):
         """
         Renames a file if it exists
-        By default, should move the file from its original path to its new path--
-        removing the old file
+        By default, should move the file from its original path to 
+        its new path-- removing the old file
         If copy is set to True, duplicate the file to the new path
 
         Args:
@@ -154,7 +165,7 @@ class BatchRenamer:
         make sure to import it at the top of the file
         '''
         self.logger.info('Attempting to ' + ('copy ' if copy else 'rename ') + 
-                f'{existing_name} to {new_name}')
+                         f'{existing_name} to {new_name}')
 
         if os.path.isfile(existing_name):
             if not os.path.isfile(new_name):
@@ -165,11 +176,11 @@ class BatchRenamer:
                     shutil.move(existing_name, new_name)
                     self.logger.info(f'Renamed {existing_name} to {new_name}')
             else:
-                self.logger.error(f'{new_name} already exists ' +
-                           'and cannot be used as a new file name.')
+                self.logger.error(f'{new_name} already exists '
+                                  'and cannot be used as a new file name.')
         else:
-            self.logger.error(f'File {existing_name} does not exist, ' + 
-                         'thus cannot be renamed.')
+            self.logger.error(f'File {existing_name} does not exist, ' 
+                              'thus cannot be renamed.')
 
     def rename_files_in_folder(self, folder_path, extension, string_to_find,
                             string_to_replace, prefix, suffix, copy=False):
@@ -192,14 +203,14 @@ class BatchRenamer:
         """
 
         self.logger.info('START: rename_files_in_folder will attempt to ' +  
-                ('copy ' if copy else 'rename ') + 
-                'files based on provided arguments.')
+                         ('copy ' if copy else 'rename ') + 
+                         'files based on provided arguments.')
         if not copy:
-            self.logger.warning('Renaming files may cause existing links ' +
+            self.logger.warning('Renaming files may cause existing links '
                                 'to break.')
         if(isinstance(extension, str)):
             if extension.count('.') >= 1 and extension[0] != '.':
-                self.logger.warning('Multiple extensions are not supported.' + 
+                self.logger.warning('Multiple extensions are not supported.' 
                                     ' ABORTING.')
                 return
         else:
@@ -210,23 +221,26 @@ class BatchRenamer:
             self.logger.info(f'Opening {folder_path} to check for files.')
             existing_name_arr = self.get_files_with_extension(folder_path, 
                                                               extension)
-            self.logger.info(f'Files with {extension} extension in ' +
+            self.logger.info(f'Files with {extension} extension in ' 
                              f'{folder_path} are: {existing_name_arr}')
             for existing_name in existing_name_arr:
                 new_name = self.get_renamed_file_path(existing_name, 
                                                       string_to_find, 
                                                       string_to_replace, 
                                                       prefix, suffix)
-                try:
-                    new_name_path = os.path.join(folder_path, new_name)
-                except TypeError:
-                    self.logger.error('string_to_replace, prefix, and ' +
-                                      'suffix must be string type. ' + 
-                                      ' string_to_find must be string or ' + 
-                                      'list/set/tuple of strings. ABORTING.')
-                    return
-                existing_name_path = os.path.join(folder_path, existing_name)
-                self.rename_file(existing_name_path, new_name_path, copy)
+                if new_name != existing_name:
+                    try:
+                        new_name_path = os.path.join(folder_path, new_name)
+                    except TypeError:
+                        self.logger.error('string_to_replace, prefix, and ' 
+                                          'suffix must be string type. ' 
+                                          'string_to_find must be string ' 
+                                          'or list/set/tuple of strings. ' 
+                                          'ABORTING.')
+                        return
+                    existing_name_path = os.path.join(folder_path, 
+                                                      existing_name)
+                    self.rename_file(existing_name_path, new_name_path, copy)
         else:
             self.logger.error(f'The folder {folder_path} does not exist!')
 

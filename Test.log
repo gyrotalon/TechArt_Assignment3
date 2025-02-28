@@ -1,1 +1,6 @@
 2025-02-27 23:38:31,262 - Test Logger 1.0.0 - INFO - Logger Initiated
+2025-02-28 03:05:10,325 - Test Logger 1.0.0 - INFO - Logger Initiated
+2025-02-28 03:05:11,448 - Test Logger 1.0.0 - ERROR - 'BatchRenamerWindow' object has no attribute 'filepath'
+2025-02-28 03:05:35,935 - Test Logger 1.0.0 - INFO - START: rename_files_in_folder will attempt to copy files based on provided arguments.
+2025-02-28 03:05:35,936 - Test Logger 1.0.0 - INFO - Opening D:/Class/ELVTR_TechArt/Assignment3/TechArt_Assignment3/testing_files to check for files.
+2025-02-28 03:05:35,936 - Test Logger 1.0.0 - ERROR - Please include a file extension.

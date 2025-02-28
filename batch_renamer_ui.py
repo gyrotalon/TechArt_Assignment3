@@ -36,6 +36,7 @@ class Ui_MainWindow(object):
         self.label_filepath.setObjectName("label_filepath")
         self.hlayout_userinput1.addWidget(self.label_filepath)
         self.lineedit_filepath = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineedit_filepath.setReadOnly(True)
         self.lineedit_filepath.setObjectName("lineedit_filepath")
         self.hlayout_userinput1.addWidget(self.lineedit_filepath)
         self.button_filepath_browse = QtWidgets.QPushButton(parent=self.centralwidget)
@@ -125,7 +126,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "File Renamer"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Batch File Renamer"))
         self.button_run.setToolTip(_translate("MainWindow", "Run the program. WARNING: Renaming files may break existing links in other programs."))
         self.button_run.setText(_translate("MainWindow", "Run"))
         self.label_filepath.setText(_translate("MainWindow", "File Path"))
@@ -134,9 +135,9 @@ class Ui_MainWindow(object):
         self.label_extension.setText(_translate("MainWindow", "Extension"))
         self.lineedit_extension.setToolTip(_translate("MainWindow", "Enter the extension of the file type you\'d like to rename. Single extension only."))
         self.label_prefix.setText(_translate("MainWindow", "Prefix"))
-        self.lineedit_prefix.setToolTip(_translate("MainWindow", "Optional: Include a prefix to add to your file name."))
+        self.lineedit_prefix.setToolTip(_translate("MainWindow", "Optional: Include a prefix to add to ALL file names with the extension."))
         self.label_suffix.setText(_translate("MainWindow", "Suffix"))
-        self.lineedit_suffix.setToolTip(_translate("MainWindow", "Optional: Include a suffix to add to your file name."))
+        self.lineedit_suffix.setToolTip(_translate("MainWindow", "Optional: Include a suffix to add to ALL file names with the extension."))
         self.label_mode.setText(_translate("MainWindow", "Mode"))
         self.button_copy.setToolTip(_translate("MainWindow", "Creates a new copy of the file with the new name. The original file is untouched."))
         self.button_copy.setText(_translate("MainWindow", "Copy"))
