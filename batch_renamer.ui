@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>747</height>
+    <width>1311</width>
+    <height>848</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
       <item>
        <widget class="QPushButton" name="button_run">
         <property name="toolTip">
-         <string>Run the program. Warning: Renaming files may break existing links in other programs.</string>
+         <string>Run the program. WARNING: Renaming files may break existing links in other programs.</string>
         </property>
         <property name="text">
          <string>Run</string>
@@ -74,14 +74,14 @@
       <item>
        <layout class="QHBoxLayout" name="hlayout_userinput2">
         <item>
-         <widget class="QLabel" name="label_filetype">
+         <widget class="QLabel" name="label_extension">
           <property name="text">
-           <string>File Type</string>
+           <string>Extension</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineedit_filetype">
+         <widget class="QLineEdit" name="lineedit_extension">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -89,7 +89,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>Enter the type of file you'd like to rename. Single file type only.</string>
+           <string>Enter the extension of the file type you'd like to rename. Single extension only.</string>
           </property>
          </widget>
         </item>
@@ -153,61 +153,94 @@
           </property>
          </widget>
         </item>
+        <item>
+         <spacer name="hspace3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Maximum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="hlayout_userinput4">
+          <item>
+           <widget class="QLabel" name="label_mode">
+            <property name="text">
+             <string>Mode</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="group_mode">
+            <property name="title">
+             <string/>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
+            </property>
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="1">
+              <widget class="QRadioButton" name="button_copy">
+               <property name="toolTip">
+                <string>Creates a new copy of the file with the new name. The original file is untouched.</string>
+               </property>
+               <property name="autoFillBackground">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Copy</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QRadioButton" name="button_replace">
+               <property name="toolTip">
+                <string>Replaces the original file with a new name.</string>
+               </property>
+               <property name="text">
+                <string>Replace</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="hlayout_userinput3">
         <item>
-         <widget class="QLabel" name="label_strings_to_find">
+         <widget class="QLabel" name="label_string_to_find">
           <property name="text">
            <string>Strings to Find</string>
           </property>
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="vlayout_stf">
-          <item>
-           <widget class="QLineEdit" name="lineedit_string_to_find">
-            <property name="toolTip">
-             <string>Text in file names for the program to find for replacement.</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="button_string_to_find_add">
+         <widget class="QLineEdit" name="lineedit_string_to_find">
           <property name="toolTip">
-           <string>Add another text/string you want to replace with the text in &quot;String to Replace&quot;</string>
-          </property>
-          <property name="text">
-           <string>Add</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="hlayout_userinput4">
-        <item>
-         <widget class="QLabel" name="label_string_to_replace">
-          <property name="toolTip">
-           <string/>
-          </property>
-          <property name="text">
-           <string>String to Replace</string>
+           <string>Text/String to find in file names and replace. For multiple entries, separate each string with backwards slash / and no extra spaces.</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineedit_string_to_replace">
-          <property name="toolTip">
-           <string>Text to replace in file names of all found instances of text from &quot;String to Find&quot;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
+         <spacer name="hspace4">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -223,51 +256,20 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label_mode">
+         <widget class="QLabel" name="label_string_to_replace">
+          <property name="toolTip">
+           <string/>
+          </property>
           <property name="text">
-           <string>Mode</string>
+           <string>String to Replace</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="group_mode">
-          <property name="title">
-           <string/>
+         <widget class="QLineEdit" name="lineedit_string_to_replace">
+          <property name="toolTip">
+           <string>Text you want to replace instances of &quot;Strings to Find&quot; with in file names.</string>
           </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
-          </property>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="0" column="1">
-            <widget class="QRadioButton" name="button_copy">
-             <property name="toolTip">
-              <string>Creates a new copy of the file with the new name. The original file is untouched.</string>
-             </property>
-             <property name="autoFillBackground">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Copy</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QRadioButton" name="button_replace">
-             <property name="toolTip">
-              <string>Replaces the original file with a new name.</string>
-             </property>
-             <property name="text">
-              <string>Replace</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>

@@ -6,7 +6,7 @@ from PyQt6.QtCore import *
 # And convert it to a .py file using the MakeUIPy.bat file
 from batch_renamer_ui import Ui_MainWindow 
 # Recommend you rename this
-import batch_renamer_lib as renamer
+import batch_renamer_lib as Renamer
 
 class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -20,7 +20,7 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
         self.button_run.clicked.connect(self.run_renamer)
 
         # Instance the "back end"
-        self.batch_renamer = renamer.BatchRenamer()
+        self.batch_renamer = Renamer.BatchRenamer()
         
         # Show UI normal vs maximized
         self.showNormal()
@@ -42,10 +42,10 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
         self.update_list()
 
     def get_parameters(self):
-        self.filetype = self.lineedit_filepath.text()
+        self.extension = self.lineedit_extension.text()
         self.prefix = self.lineedit_prefix.text()
         self.suffix = self.lineedit_suffix.text()
-        self.string_to_find = self.lineedit_strings_to_find.text()
+        self.string_to_find = self.lineedit_string_to_find.text()
         self.string_to_replace = self.lineedit_string_to_replace.text()
         self.copy = self.button_copy.isChecked()
 
@@ -73,8 +73,13 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
         Run back end batch renamer using self.batch_renamer
         self.batch_renamer is an instance of the BatchRenamer class
         """
-        self.batch_renamer = renamer()
-        pass
+        self.get_parameters()
+        self.batch_renamer.rename_files_in_folder(self.filepath, 
+                                                  self.extension, 
+                                                  self.string_to_find,
+                                                  self.string_to_replace,
+                                                  self.prefix, self.suffix,
+                                                  self.copy)
 
 
 if __name__ == '__main__':
