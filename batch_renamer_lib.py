@@ -155,15 +155,9 @@ class BatchRenamer:
         Args:
             existing_name: full filepath a file that should already exist
             new_name: full filepath for new name
-            copy_mode: copy instead of rename
+            copy: copy instead of rename
         """
 
-        '''
-        REMINDERS
-
-        Copy files using shutil.copy
-        make sure to import it at the top of the file
-        '''
         self.logger.info('Attempting to ' + ('copy ' if copy else 'rename ') + 
                          f'{existing_name} to {new_name}')
 

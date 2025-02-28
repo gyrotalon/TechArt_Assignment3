@@ -14,10 +14,7 @@ import sys
 import os
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
-# You'll need to make this ui in QtDesigner
-# And convert it to a .py file using the MakeUIPy.bat file
 from batch_renamer_ui import Ui_MainWindow 
-# Recommend you rename this
 import batch_renamer_lib as Renamer
 
 class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
@@ -78,18 +75,24 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
             self.listWidget.addItems(files)
 
     def complete_popup(self):
+        """
+        Opens a popup window after successfully running the program.
+        """
         message = QMessageBox()
         message.setWindowTitle("Complete")
-        message.setText('Program has completed running.\n'
-                        'Check the log for information.')
+        message.setText('Program has completed running.\n')
         x = message.exec()
     
-    def err_popup(self):
+    def err_popup(self, details):
+        """
+        Opens a popup window after an error occurs with the program.
+        """
         message = QMessageBox()
         message.setWindowTitle("ERROR")
-        message.setText('An error has occured!\n'
-                        'Check the log for information')
+        message.setText('An error has occured!\n')
         message.setIcon(QMessageBox.Icon.Critical)
+        message.setDetailedText(details)
+        message.setStandardButtons(QMessageBox.StandardButton.Close)
         x = message.exec()
 
 
@@ -108,12 +111,12 @@ class BatchRenamerWindow(QMainWindow, Ui_MainWindow):
                                                       self.prefix, self.suffix,
                                                       self.copy)
             self.update_list()
-        except AttributeError as err_att:
-            self.batch_renamer.logger.error(err_att)
-            self.err_popup()
+        except AttributeError as attr_err:
+            self.batch_renamer.logger.error(attr_err)
+            self.err_popup(str(attr_err))
         except IndexError:
             self.batch_renamer.logger.error("Please include a file extension.")
-            self.err_popup()
+            self.err_popup("Please include a file extension.")
         else:
             self.complete_popup()
         
